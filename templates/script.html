@@ -9,7 +9,35 @@
 <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
 <!-- Initializations -->
 <script type="text/javascript">
+
 // Animations initialization
 new WOW().init();
 
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const links = document.querySelectorAll('.nav-link');
+      const cards = document.querySelectorAll('.card-category');
+    
+      links.forEach(link => {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          const category = this.getAttribute('data-category');
+          links.forEach(link => link.classList.remove('active'));
+          this.classList.add('active');
+    
+          cards.forEach(card => {
+            if (category === 'all') {
+              card.style.display = 'block';
+            } else {
+              card.style.display = card.classList.contains(category) ? 'block' : 'none';
+            }
+          });
+        });
+      });
+    
+      // Initially show all cards
+      document.querySelector('.nav-link[data-category="all"]').click();
+    });
+    </script>
+    

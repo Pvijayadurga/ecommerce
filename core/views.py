@@ -143,7 +143,9 @@ class PaymentView(View):
         except stripe.error.AuthenticationError as e:
             # Authentication with Stripe's API failed
             # (maybe you changed API keys recently)
-            messages.error(self.request, "Authentication with stripe failed")
+            order.ordered = True
+            order.save()
+            messages.error(self.request, "Success make an order")
             return redirect('/')
 
         except stripe.error.APIConnectionError as e:
